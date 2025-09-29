@@ -1,0 +1,47 @@
+%% Diagrama de clases en formato Mermaid para README
+classDiagram
+    direction TB
+    enum ComboType {
+        HAMBURGUESA
+        POLLO
+        VEGETARIANO
+    }
+
+    class Combo {
+        - ComboType tipo
+        - String bebida
+        - String acompanamiento
+        - String extra
+        - double precio
+        + getResumen():String
+    }
+
+    class ComboBuilder {
+        - Combo combo
+        + ComboBuilder(ComboType tipo)
+        + setBebida(String):ComboBuilder
+        + setAcompanamiento(String):ComboBuilder
+        + setExtra(String):ComboBuilder
+        + setPrecio(double):ComboBuilder
+        + build():Combo
+    }
+
+    class ComboFactory {
+        + crearComboBase(ComboType):Combo
+    }
+
+    class ComboController {
+        - ComboFactory factory
+        + crearYPersonalizar(ComboType, String bebida, String acomp, String extra):Combo
+    }
+
+    class ComboView {
+        + mostrarResumen(Combo):void
+        + pedirPersonalizacion():void
+    }
+
+    Combo --> ComboBuilder : built by
+    ComboFactory --> Combo : crea instancia base
+    ComboController --> ComboFactory : usa
+    ComboController --> Combo : devuelve
+    ComboView --> ComboController : interactua con
