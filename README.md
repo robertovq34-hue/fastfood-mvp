@@ -1,8 +1,4 @@
-classDiagram
-    class PaymentStrategy {
-        <<interface>>
-        +pay(amount: double) double
-    }
+
 
     class CardStrategy {
         +pay(amount: double) double
